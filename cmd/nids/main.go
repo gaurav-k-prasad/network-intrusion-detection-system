@@ -13,7 +13,9 @@ func main() {
 		panic(err)
 	}
 
-	defer file.Close()
+	defer func() {
+		_ = file.Close()
+	}()
 
 	handler := slog.NewJSONHandler(file, nil)
 	// handler := slog.NewTextHandler(os.Stdout, nil)
