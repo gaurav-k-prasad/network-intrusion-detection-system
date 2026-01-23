@@ -28,5 +28,19 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/
+
+# Data files - .pcap
+data/
+
+# Any testing files
+__try*
+__try*/**
+
+# Development files
+todo.md
+bugs.md
+
+# Log files
+*.log
