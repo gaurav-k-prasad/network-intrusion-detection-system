@@ -59,7 +59,7 @@ Creates online pacet capture using given parameters
 */
 func CreateOnlinePacketCapture(device string, snapshotLength int32, promiscuous bool, logger *slog.Logger) (*PacketCapture, error) {
 	if device == "" {
-		return nil, fmt.Errorf("Device name cannot be empty for online packet capture")
+		return nil, fmt.Errorf("device name cannot be empty for online packet capture")
 	}
 
 	packetCapture := &PacketCapture{
@@ -85,7 +85,7 @@ Creates online pacet capture using given parameters
 */
 func CreateOfflinePacketCapture(filePath string, logger *slog.Logger) (*PacketCapture, error) {
 	if filePath == "" {
-		return nil, fmt.Errorf("File path cannot be empty")
+		return nil, fmt.Errorf("file path cannot be empty")
 	}
 
 	packetCapture := &PacketCapture{
@@ -122,11 +122,11 @@ func (p *PacketCapture) setup() error {
 	}
 
 	if err != nil {
-		return fmt.Errorf("pcap opening error: %w\n", err)
+		return fmt.Errorf("pcap opening error: %w", err)
 	}
 
 	if err := p.handle.SetBPFFilter("tcp"); err != nil {
-		return fmt.Errorf("bpf filter failed: %w\n", err)
+		return fmt.Errorf("bpf filter failed: %w", err)
 	}
 
 	p.PacketSource = gopacket.NewPacketSource(p.handle, p.handle.LinkType())
@@ -203,8 +203,8 @@ func (p *PacketCapture) StartProcessing(engine *detector.Engine) {
 	streamPool := tcpassembly.NewStreamPool(streamFactory)
 
 	assembler := tcpassembly.NewAssembler(streamPool)
-	assembler.AssemblerOptions.MaxBufferedPagesPerConnection = 10
-	assembler.AssemblerOptions.MaxBufferedPagesTotal = 20000
+	assembler.MaxBufferedPagesPerConnection = 10
+	assembler.MaxBufferedPagesTotal = 20000
 
 	ticker := time.NewTicker(1 * time.Minute)
 	defer ticker.Stop()
