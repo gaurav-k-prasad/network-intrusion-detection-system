@@ -26,12 +26,15 @@ func main() {
 	packetCapture, err := capture.CreateOnlinePacketCapture("eth0", 1600, true, logger)
 	if err != nil {
 		slog.Error("Error creating capture", "error", err)
-		os.Exit(1)
+		panic(err)
 	}
 
 	defer packetCapture.Close()
 
-	engine := detector.NewEngine([]string{"malware", "attack", "exploit"}, logger.With("module", "engine"))
+	engine, err := detector.NewEngine(logger.With("module", "engine"))
+	if err != nil {
+		panic(err)
+	}
 
 	packetCapture.StartProcessing(engine)
 }

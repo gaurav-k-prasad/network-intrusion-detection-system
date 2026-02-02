@@ -1,7 +1,6 @@
 /*
 This module deals with capturing the packet on basis of how it's called (online packet capture / offline packet capture)
 */
-
 package capture
 
 import (
@@ -189,7 +188,8 @@ func (sf *NIDSStreamFactory) New(netFlow, tcpFlow gopacket.Flow) tcpassembly.Str
 		transport: &tcpFlow,
 	}
 
-	go sf.Engine.Detect(netFlow, tcpFlow, bufio.NewReader(stream.reader), connLogger.With("module", "detector"))
+	go sf.Engine.ReadBytes(bufio.NewReader(stream.reader), connLogger.With("module", "data_reader"))
+	go sf.Engine.Detect(netFlow, tcpFlow, connLogger.With("module", "detector"))
 
 	connLogger.Info("New stream detected")
 	return &stream
