@@ -44,7 +44,7 @@ func DownloadIPs(path string) error {
 	return nil
 }
 
-func GetIpTrie(path string) (*trie.Trie, error) {
+func GetIPTrie(path string) (*trie.Trie, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err

@@ -7,7 +7,7 @@ import (
 )
 
 func TestIPTrie(t *testing.T) {
-	tr, err := updateips.GetIpTrie("../../blacklist.txt")
+	tr, err := updateips.GetIPTrie("../../blacklist.txt")
 
 	if err != nil {
 		t.Fatal(err)
