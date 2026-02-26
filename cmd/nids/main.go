@@ -17,6 +17,9 @@ func main() {
 		_ = file.Close()
 	}()
 
+	// programLevel := new(slog.LevelVar) // Info by default
+	// programLevel.Set(slog.LevelWarn)
+	// handler := slog.NewJSONHandler(file, &slog.HandlerOptions{Level: programLevel})
 	handler := slog.NewJSONHandler(file, nil)
 	// handler := slog.NewTextHandler(os.Stdout, nil)
 	logger := slog.New(handler)
