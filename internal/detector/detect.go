@@ -5,6 +5,7 @@ package detector
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"log/slog"
 
@@ -54,6 +55,7 @@ func (e *Engine) Detect(netFlow, tcpFlow gopacket.Flow, streamLogger *slog.Logge
 	streamLogger.Info("Stream analysis started")
 	src := netFlow.Src().String()
 	dst := netFlow.Dst().String()
+	fmt.Println(src, dst)
 
 	if isPresent, err := e.Trie.IsIPBlockPresent(src); err == nil && isPresent {
 		if isTrusted, err := utils.IsIPTrusted(src); err == nil && !isTrusted {
