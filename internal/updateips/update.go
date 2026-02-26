@@ -12,6 +12,7 @@ import (
 )
 
 func DownloadIPs(path string) error {
+	// ! WARNING: CONFIG
 	baseURL := "https://raw.githubusercontent.com"
 
 	noteName := "firehol/blocklist-ipsets/master/firehol_level1.netset"
