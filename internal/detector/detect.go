@@ -10,6 +10,7 @@ import (
 
 	"nids/internal/trie"
 	"nids/internal/updateips"
+	"nids/internal/utils"
 
 	"github.com/google/gopacket"
 )
@@ -30,6 +31,7 @@ type Engine struct {
 Creates a new engine for malicious IP Detection
 */
 func NewEngine(Logger *slog.Logger) (*Engine, error) {
+	// ! WARNING: CONFIG
 	ipTrie, err := updateips.GetIPTrie("blacklist.txt")
 
 	if err != nil {
@@ -54,12 +56,16 @@ func (e *Engine) Detect(netFlow, tcpFlow gopacket.Flow, streamLogger *slog.Logge
 	dst := netFlow.Dst().String()
 
 	if isPresent, err := e.Trie.IsIPBlockPresent(src); err == nil && isPresent {
-		streamLogger.Info("Source IP Malicious")
-		e.AlertCount += 1
+		if isTrusted, err := utils.IsIPTrusted(src); err == nil && !isTrusted {
+			streamLogger.Warn("Source IP Malicious")
+			e.AlertCount += 1
+		}
 	}
 	if isPresent, err := e.Trie.IsIPBlockPresent(dst); err == nil && isPresent {
-		streamLogger.Info("Destination IP Malicious")
-		e.AlertCount += 1
+		if isTrusted, err := utils.IsIPTrusted(dst); err == nil && !isTrusted {
+			streamLogger.Warn("Destination IP Malicious")
+			e.AlertCount += 1
+		}
 	}
 }
 

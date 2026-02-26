@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	file, err := os.OpenFile("nids.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile("nids.log", os.O_TRUNC|os.O_CREATE|os.O_WRONLY, 0777)
 	if err != nil {
 		panic(err)
 	}
@@ -17,10 +17,10 @@ func main() {
 		_ = file.Close()
 	}()
 
-	// programLevel := new(slog.LevelVar) // Info by default
-	// programLevel.Set(slog.LevelWarn)
-	// handler := slog.NewJSONHandler(file, &slog.HandlerOptions{Level: programLevel})
-	handler := slog.NewJSONHandler(file, nil)
+	programLevel := new(slog.LevelVar) // Info by default
+	programLevel.Set(slog.LevelWarn)
+	handler := slog.NewJSONHandler(file, &slog.HandlerOptions{Level: programLevel})
+	// handler := slog.NewJSONHandler(file, nil)
 	// handler := slog.NewTextHandler(os.Stdout, nil)
 	logger := slog.New(handler)
 	slog.SetDefault(logger)
