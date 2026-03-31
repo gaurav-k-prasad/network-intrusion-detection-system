@@ -44,3 +44,6 @@ bugs.md
 
 # Log files
 *.log
+
+# venv for python
+venv/
