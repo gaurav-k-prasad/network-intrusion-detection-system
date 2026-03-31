@@ -9,8 +9,8 @@ import sys
 
 app = FastAPI(title="NIDS Dashboard API")
 
-LOG_FILE_PATH = "/home/gaurav/coding/NIDS/nids.log"
-DASHBOARD_HTML_PATH = "/home/gaurav/coding/NIDS/dashboard.html"
+LOG_FILE_PATH = "../nids.log"
+DASHBOARD_HTML_PATH = "../dashboard.html"
 
 # In-memory storage or queue for broadcasting logs to SSE clients
 clients = []
@@ -80,7 +80,7 @@ class FlowFeatures(BaseModel):
 import pickle
 import numpy as np
 
-MODEL_PATH = "/home/gaurav/coding/NIDS/ai/model.pkl"
+MODEL_PATH = "../ai/model.pkl"
 
 @app.post("/api/predict")
 async def predict_anomaly(features: FlowFeatures, background_tasks: BackgroundTasks):

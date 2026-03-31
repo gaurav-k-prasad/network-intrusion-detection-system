@@ -50,4 +50,4 @@ def generate_baseline_data(output_file="baseline_flow_features.csv", num_samples
     print(f"Saved baseline data to {output_file}")
     
 if __name__ == "__main__":
-    generate_baseline_data("/home/gaurav/coding/NIDS/ai/baseline_flow_features.csv")
+    generate_baseline_data("baseline_flow_features.csv")

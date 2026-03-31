@@ -30,6 +30,6 @@ def train_model(dataset_path="baseline_flow_features.csv", model_output="model.p
 
 if __name__ == "__main__":
     train_model(
-        "/home/gaurav/coding/NIDS/ai/baseline_flow_features.csv",
-        "/home/gaurav/coding/NIDS/ai/model.pkl"
+        "baseline_flow_features.csv",
+        "model.pkl"
     )
